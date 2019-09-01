@@ -26,7 +26,7 @@
                 <ImageView
                     android:layout_width="45dp"
                     android:id="@+id/toolbarMenu"
-                    android:tint="@android:color/darker_gray"
+                    android:tint="@android:color/holo_purple"
                     android:layout_centerVertical="true"
                     android:layout_height="45dp"
                     android:src="@drawable/menu"
@@ -40,13 +40,13 @@
                     android:textSize="20sp"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/toolbrtext"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/holo_purple"
                     android:text="Political Blog"
                     android:layout_height="wrap_content"/>
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:tint="@android:color/darker_gray"
+                    android:tint="@android:color/holo_purple"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@+id/toolbarSearch"
@@ -58,13 +58,14 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
                     android:layout_width="25dp"
-                    android:tint="@android:color/darker_gray"
+                    android:tint="@android:color/holo_purple"
                     android:src="@drawable/searchicon"
                     android:layout_height="25dp"/>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
+            app:tabTextColor="@android:color/holo_purple"
             android:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
