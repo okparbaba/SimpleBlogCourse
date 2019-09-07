@@ -20,7 +20,7 @@ class RetrofitHelper {
 
             val ret = Retrofit.Builder()
                 .client(okclient)
-                .baseUrl("http://172.17.20.67:8080/")
+                .baseUrl("http://172.17.20.66:8080/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(T::class.java)

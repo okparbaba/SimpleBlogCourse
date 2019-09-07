@@ -3,8 +3,11 @@ package com.example.simpleblog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.simpleblog.model.AddTodo
 import com.example.simpleblog.model.Data2
@@ -15,10 +18,14 @@ import com.example.simpleblog.network.TodoService
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.adddialoglayout.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.widget.EditText
+
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
@@ -43,35 +50,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
         val gh = getRetrofit<TodoService>()
 
-//        gh.getTodos().enqueue(object:Callback<Todo>{
-//            override fun onFailure(call: Call<Todo>, t: Throwable) {
-//                Log.e("todo",t.message.toString())
-//            }
-//
-//            override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
-//                if (response.isSuccessful){
-//                    val todo = response.body() as Todo
-//                    val tl = todo.data
-//                    for (i in tl){
-//                        Log.e("todo",i.task)
-//                    }
-//                }
-//            }
-//
-//        })
-//        gh.addTodo("Hello Fuck U All")
-//            .enqueue(object :Callback<AddTodo>{
-//                override fun onFailure(call: Call<AddTodo>, t: Throwable) {
-//                    Log.e("addtodo",t.message.toString())
-//                }
-//
-//                override fun onResponse(call: Call<AddTodo>, response: Response<AddTodo>) {
-//                    val ad = response.body()!!
-//                    val a = ad.data as Data2
-//                    Log.e("addtodo",a.insertId.toString())
-//                }
-//
-//            })
+        fabAddTodo.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this).create()
+            val inflater = layoutInflater
+            val dialogView = inflater.inflate(R.layout.adddialoglayout,null)
+            val editText = dialogView.findViewById(R.id.et_todo) as EditText
+            val button1 = dialogView.findViewById(R.id.buttonSubmit) as Button
+            val button2 = dialogView.findViewById(R.id.buttonCancel) as Button
+            button1.setOnClickListener {
+                dialogBuilder.dismiss()
+            }
+            button2.setOnClickListener {
 
+                dialogBuilder.dismiss()
+            }
+            dialogBuilder.setView(dialogView)
+            dialogBuilder.show()
+        }
     }
+
 }
