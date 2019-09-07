@@ -39,5 +39,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2016-04-10T17:20:40.000Z" />
+        <ImageView
+            android:id="@+id/ivDeleteTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="@android:color/holo_red_light"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="70dp"
+            />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

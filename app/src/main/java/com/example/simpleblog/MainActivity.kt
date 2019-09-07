@@ -2,6 +2,7 @@ package com.example.simpleblog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -24,7 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.widget.EditText
-
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(view_pager)
         navView.setNavigationItemSelectedListener(this)
-        val gh = getRetrofit<TodoService>()
 
         fabAddTodo.setOnClickListener {
             val dialogBuilder = AlertDialog.Builder(this).create()
@@ -58,7 +58,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val button1 = dialogView.findViewById(R.id.buttonSubmit) as Button
             val button2 = dialogView.findViewById(R.id.buttonCancel) as Button
             button1.setOnClickListener {
-                dialogBuilder.dismiss()
+                if (TextUtils.isEmpty(editText.text)){
+                    editText.error = "Task Required"
+                }
+                addTodo(editText.text.toString(),dialogBuilder)
+
             }
             button2.setOnClickListener {
 
@@ -67,6 +71,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             dialogBuilder.setView(dialogView)
             dialogBuilder.show()
         }
+    }
+    private fun addTodo(task:String,dia:AlertDialog){
+        getRetrofit<TodoService>().addTodo(task)
+            .enqueue(object :Callback<AddTodo>{
+                override fun onFailure(call: Call<AddTodo>, t: Throwable) {
+                    Toast.makeText(this@MainActivity,t.message.toString(),Toast.LENGTH_LONG).show()
+                }
+                override fun onResponse(call: Call<AddTodo>, response: Response<AddTodo>) {
+                    val mess = response.body()?.message
+                    Toast.makeText(this@MainActivity,mess,Toast.LENGTH_LONG).show()
+                    dia.dismiss()
+                }
+            })
     }
 
 }
